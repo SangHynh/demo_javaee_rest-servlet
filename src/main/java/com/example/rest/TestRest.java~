@@ -1,0 +1,9 @@
+package com.example.rest;
+
+import jakarta.ws.rs.Path;
+
+@Path("/test")
+public class TestRest {
+
+
+}

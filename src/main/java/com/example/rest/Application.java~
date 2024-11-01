@@ -1,0 +1,12 @@
+package com.example.rest;
+
+import jakarta.ws.rs.*;
+
+@Path("/hello-world")
+public class Application {
+    @GET
+    @Produces("text/plain")
+    public String hello() {
+        return "Hello, World!";
+    }
+}

@@ -1,0 +1,21 @@
+package com.example.rest.entities;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.*;
+
+@Entity
+@Table
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+public class Account {
+
+    private Long id;
+    private String username;
+    private String email;
+    private String address;
+}
