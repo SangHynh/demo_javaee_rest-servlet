@@ -78,6 +78,7 @@
 
         // Thêm nút Sửa và Xóa
         const actionsCell = document.createElement('td');
+
         const editButton = document.createElement('button');
         editButton.textContent = 'Sửa';
         editButton.classList.add('button');
@@ -95,19 +96,46 @@
       });
     }
 
+    function addAccount() {
+      const username = prompt('Nhập tên người dùng mới:');
+      const email = prompt('Nhập email mới:');
+      const address = prompt('Nhập địa chỉ mới:');
+
+      if (username && email && address) {
+        fetch('http://localhost:8080/rest-1.0-SNAPSHOT/api/accounts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, email, address }),
+        })
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                  }
+                  fetchAccounts(); // Cập nhật danh sách tài khoản
+                })
+                .catch(error => {
+                  console.error('Error adding account:', error);
+                  alert('Đã xảy ra lỗi khi thêm tài khoản.');
+                });
+      }
+    }
+
     function editAccount(id) {
       const account = accounts.find(acc => acc.id === id);
       if (account) {
         const newUsername = prompt('Nhập tên người dùng mới:', account.username);
         const newEmail = prompt('Nhập email mới:', account.email);
-        if (newUsername && newEmail) {
-          // Cập nhật tài khoản (gửi yêu cầu PUT đến API)
+        const newAddress = prompt('Nhập địa chỉ mới:', account.address);
+
+        if (newUsername && newEmail && newAddress) {
           fetch("http://localhost:8080/rest-1.0-SNAPSHOT/api/accounts/"+id, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ username: newUsername, email: newEmail }),
+            body: JSON.stringify({ username: newUsername, email: newEmail, address: newAddress }),
           })
                   .then(response => {
                     if (!response.ok) {
@@ -155,6 +183,7 @@
 </head>
 <body>
 <h1>Danh Sách Tài Khoản</h1>
+<button onclick="addAccount()" class="button">Thêm Tài Khoản</button> <!-- Nút thêm tài khoản -->
 <input type="text" id="searchInput" placeholder="Tìm kiếm..." onkeyup="searchAccounts()">
 <table>
   <thead>

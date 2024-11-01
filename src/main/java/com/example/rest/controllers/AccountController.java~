@@ -55,7 +55,7 @@ public class AccountController {
         return Response.ok(account).build(); // Trả về tài khoản đã cập nhật
     }
 
-     // Xóa tài khoản theo ID
+    // Xóa tài khoản theo ID
     @DELETE
     @Path("/{id}") // Đường dẫn bao gồm ID
     @Transactional // Đánh dấu phương thức là giao dịch
